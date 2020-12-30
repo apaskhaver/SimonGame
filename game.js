@@ -12,11 +12,12 @@ $(".btn").click(function() {
   userClickedPattern.push(userChosenColor);
   animatePress(userChosenColor);
   playSound(userChosenColor);
-  checkAnswer(buttonColors.indexOf(userChosenColor));
+  checkAnswer(userClickedPattern.length - 1);
 });
 
 //generate next part of pattern, flash it, play sound. Update levels.
 function nextSequence() {
+  userClickedPattern = [];
   $("#level-title").text("Level " + level++);
 
   var randomNumber = Math.floor(Math.random() * 4);
@@ -47,12 +48,22 @@ function animatePress(currentColor) {
 
 //checks answer
 function checkAnswer(currentLevel) {
-  if (buttonColors[currentLevel] === gamePattern[gamePattern.length-1]) {
+  //if the last button clicked equals the last color uploaded to gamePattern
+  if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
     if (userClickedPattern.length === gamePattern.length) {
-      userClickedPattern = [];
       setTimeout(nextSequence, 1000);
     }
   } else {
-    
+    for (var i = 0; i < $("audio").length; i++) {
+      if (($($("audio")[i]).attr("src")).includes("wrong")) {
+        $("audio")[i].play();
+      }
+    }
+    $("#level-title").text("Game Over, Press Any Key To Restart");
+    $("body").addClass("game-over");
+
+    setTimeout(function() {
+      $("body").removeClass("game-over");
+    }, 200);
   }
 }
