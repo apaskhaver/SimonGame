@@ -2,10 +2,14 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 
+//start game
+$(document).keydown(nextSequence());
+
 //record pattern user clicked
-$(".btn").click(function () {
+$(".btn").click(function() {
   var userChosenColor = $(this).attr("id");
   userClickedPattern.push(userChosenColor);
+  animatePress(userChosenColor);
   playSound(userChosenColor);
 });
 
@@ -22,9 +26,17 @@ function nextSequence() {
 function playSound(name) {
   //array of audio elements
   for (var i = 0; i < $("audio").length; i++) {
-      if (($($("audio")[i]).attr("src")).includes(name)) {
-        $("audio")[i].play();
-      }
+    if (($($("audio")[i]).attr("src")).includes(name)) {
+      $("audio")[i].play();
+    }
   }
+}
 
+//animates button when it is pressed
+function animatePress(currentColor) {
+  $("#" + currentColor).addClass("pressed");
+
+  setTimeout(function () {
+    $("#" + currentColor).removeClass("pressed");
+  }, 100);
 }
