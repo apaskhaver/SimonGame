@@ -6,7 +6,7 @@ var userClickedPattern = [];
 $(document).keydown(nextSequence);
 var level = 1;
 
-//record pattern user clicked
+//record pattern user clicked, animate it, play sound
 $(".btn").click(function() {
   var userChosenColor = $(this).attr("id");
   userClickedPattern.push(userChosenColor);
