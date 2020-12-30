@@ -3,7 +3,8 @@ var gamePattern = [];
 var userClickedPattern = [];
 
 //start game
-$(document).keydown(nextSequence());
+$(document).keydown(nextSequence);
+var level = 1;
 
 //record pattern user clicked
 $(".btn").click(function() {
@@ -13,8 +14,10 @@ $(".btn").click(function() {
   playSound(userChosenColor);
 });
 
-//generate next part of pattern, flash it
+//generate next part of pattern, flash it, play sound. Update levels.
 function nextSequence() {
+  $("#level-title").text("Level " + level++);
+
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColor = buttonColors[randomNumber];
   gamePattern.push(randomChosenColor);
