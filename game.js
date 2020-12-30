@@ -12,6 +12,7 @@ $(".btn").click(function() {
   userClickedPattern.push(userChosenColor);
   animatePress(userChosenColor);
   playSound(userChosenColor);
+  checkAnswer(buttonColors.indexOf(userChosenColor));
 });
 
 //generate next part of pattern, flash it, play sound. Update levels.
@@ -42,4 +43,16 @@ function animatePress(currentColor) {
   setTimeout(function () {
     $("#" + currentColor).removeClass("pressed");
   }, 100);
+}
+
+//checks answer
+function checkAnswer(currentLevel) {
+  if (buttonColors[currentLevel] === gamePattern[gamePattern.length-1]) {
+    if (userClickedPattern.length === gamePattern.length) {
+      userClickedPattern = [];
+      setTimeout(nextSequence, 1000);
+    }
+  } else {
+    
+  }
 }
